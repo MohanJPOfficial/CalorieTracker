@@ -1,4 +1,5 @@
 [versions]
+compose-compiler = "1.5.10"
 activity-compose = "1.8.2"
 androidx-junit = "1.1.5"
 core-ktx = "1.12.0"
@@ -14,9 +15,9 @@ okhttp = "4.12.0"
 room = "2.6.1"
 
 #plugin versions
-ksp = "1.9.0-1.0.13"
+ksp = "1.9.22-1.0.17"
 android-gradle = "8.3.0"
-kotlin = "1.9.0"
+kotlin = "1.9.22"
 
 
 [libraries]
