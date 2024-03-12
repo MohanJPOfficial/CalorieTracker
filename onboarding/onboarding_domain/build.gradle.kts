@@ -38,6 +38,13 @@ android {
 dependencies {
 
     /**
+     * test
+     */
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    /**
      * dagger
      */
     implementation(libs.dagger.hilt.android)
