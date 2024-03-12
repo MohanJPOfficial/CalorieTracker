@@ -15,7 +15,7 @@ fun ActionButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     isEnabled: Boolean = true,
-    textStyle: TextStyle = MaterialTheme.typography.titleLarge
+    textStyle: TextStyle = MaterialTheme.typography.titleMedium
 ) {
     Button(
         onClick = onClick,
@@ -27,7 +27,8 @@ fun ActionButton(
             text = text,
             color = MaterialTheme.colorScheme.onPrimary,
             modifier = modifier
-                .padding(LocalSpacing.current.spaceSmall)
+                .padding(LocalSpacing.current.spaceSmall),
+            style = textStyle
         )
     }
 }
