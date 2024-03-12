@@ -85,5 +85,6 @@ dependencies {
      * module
      */
     implementation(projects.core)
+    implementation(projects.coreUi)
     implementation(projects.tracker.trackerDomain)
 }

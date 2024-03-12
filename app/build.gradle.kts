@@ -106,6 +106,7 @@ dependencies {
      * modules
      */
     implementation(projects.core)
+    implementation(projects.coreUi)
     implementation(projects.onboarding.onboardingPresentation)
     implementation(projects.onboarding.onboardingDomain)
     implementation(projects.tracker.trackerPresentation)
