@@ -13,6 +13,10 @@ import com.mohanjp.onboarding_presentation.age.AgeScreen
 import com.mohanjp.onboarding_presentation.age.AgeViewModel
 import com.mohanjp.onboarding_presentation.gender.GenderScreen
 import com.mohanjp.onboarding_presentation.gender.GenderViewModel
+import com.mohanjp.onboarding_presentation.height.HeightScreen
+import com.mohanjp.onboarding_presentation.height.HeightViewModel
+import com.mohanjp.onboarding_presentation.weight.WeightScreen
+import com.mohanjp.onboarding_presentation.weight.WeightViewModel
 import com.mohanjp.onboarding_presentation.welcome.WelcomeScreen
 
 @Composable
@@ -61,20 +65,38 @@ fun SetupNavGraph(
         composable(
             route = Screen.HEIGHT.route
         ) {
+            val viewModel: HeightViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+            HeightScreen(
+                onNavigate = navHostController::navigate,
+                onUiAction = viewModel.uiAction,
+                uiState = uiState,
+                uiEvent = viewModel.uiEvent,
+                showSnackBar = snackBarHostState::showSnackbar
+            )
         }
         composable(
             route = Screen.WEIGHT.route
+        ) {
+            val viewModel: WeightViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            WeightScreen(
+                onNavigate = navHostController::navigate,
+                onUiAction = viewModel.uiAction,
+                uiState = uiState,
+                uiEvent = viewModel.uiEvent,
+                showSnackBar = snackBarHostState::showSnackbar
+            )
+        }
+        composable(
+            route = Screen.ACTIVITY.route
         ) {
 
         }
         composable(
             route = Screen.NUTRIENT_GOAL.route
-        ) {
-
-        }
-        composable(
-            route = Screen.ACTIVITY.route
         ) {
 
         }
