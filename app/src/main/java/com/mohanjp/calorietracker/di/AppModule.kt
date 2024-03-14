@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.mohanjp.core.data.preferences.DefaultPreferences
+import com.mohanjp.core.domain.usecase.FilterOutDigits
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,4 +25,8 @@ object AppModule {
             Context.MODE_PRIVATE
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideFilterOutDigitsUseCase() = FilterOutDigits()
 }

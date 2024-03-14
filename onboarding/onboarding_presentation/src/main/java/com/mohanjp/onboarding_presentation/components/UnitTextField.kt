@@ -11,7 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
@@ -24,7 +23,7 @@ fun UnitTextField(
     unit: String,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle(
-        color = MaterialTheme.colorScheme.onPrimary,
+        color = MaterialTheme.colorScheme.primary,
         fontSize = 70.sp
     )
 ) {
@@ -44,14 +43,15 @@ fun UnitTextField(
             singleLine = true,
             modifier = Modifier
                 .width(IntrinsicSize.Min)
-                .alignBy(LastBaseline)
+                .alignByBaseline()
         )
 
         Spacer(modifier = Modifier.width(spacing.spaceSmall))
 
         Text(
             text = unit,
-            modifier = Modifier.alignBy(LastBaseline)
+            modifier = Modifier
+                .alignByBaseline()
         )
     }
 }
