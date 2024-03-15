@@ -19,6 +19,8 @@ import com.mohanjp.onboarding_presentation.goal.GoalScreen
 import com.mohanjp.onboarding_presentation.goal.GoalViewModel
 import com.mohanjp.onboarding_presentation.height.HeightScreen
 import com.mohanjp.onboarding_presentation.height.HeightViewModel
+import com.mohanjp.onboarding_presentation.nutrientgoal.NutrientGoalScreen
+import com.mohanjp.onboarding_presentation.nutrientgoal.NutrientGoalViewModel
 import com.mohanjp.onboarding_presentation.weight.WeightScreen
 import com.mohanjp.onboarding_presentation.weight.WeightViewModel
 import com.mohanjp.onboarding_presentation.welcome.WelcomeScreen
@@ -123,7 +125,16 @@ fun SetupNavGraph(
         composable(
             route = Screen.NUTRIENT_GOAL.route
         ) {
+            val viewModel: NutrientGoalViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+            NutrientGoalScreen(
+                onNavigate = navHostController::navigate,
+                onUiAction = viewModel.uiAction,
+                uiState = uiState,
+                uiEvent = viewModel.uiEvent,
+                showSnackBar = snackBarHostState::showSnackbar
+            )
         }
         composable(
             route = Screen.TRACKER_OVERVIEW.route

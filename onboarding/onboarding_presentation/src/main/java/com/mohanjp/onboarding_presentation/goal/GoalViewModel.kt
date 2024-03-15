@@ -58,7 +58,11 @@ class GoalViewModel @Inject constructor(
 
     private fun onNextClick() = viewModelScope.launch {
         preferences.saveGoalType(uiState.value.selectedGoal)
-        _uiEvent.send(UiEvent.Navigate(Screen.NUTRIENT_GOAL))
+        sendEvent(UiEvent.Navigate(Screen.NUTRIENT_GOAL))
+    }
+
+    private fun sendEvent(uiEvent: UiEvent) = viewModelScope.launch {
+        _uiEvent.send(uiEvent)
     }
 
     sealed interface UiAction {
