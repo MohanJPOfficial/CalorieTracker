@@ -9,10 +9,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.mohanjp.core.navigation.Screen
+import com.mohanjp.onboarding_presentation.activity.ActivityScreen
+import com.mohanjp.onboarding_presentation.activity.ActivityViewModel
 import com.mohanjp.onboarding_presentation.age.AgeScreen
 import com.mohanjp.onboarding_presentation.age.AgeViewModel
 import com.mohanjp.onboarding_presentation.gender.GenderScreen
 import com.mohanjp.onboarding_presentation.gender.GenderViewModel
+import com.mohanjp.onboarding_presentation.goal.GoalScreen
+import com.mohanjp.onboarding_presentation.goal.GoalViewModel
 import com.mohanjp.onboarding_presentation.height.HeightScreen
 import com.mohanjp.onboarding_presentation.height.HeightViewModel
 import com.mohanjp.onboarding_presentation.weight.WeightScreen
@@ -93,15 +97,31 @@ fun SetupNavGraph(
         composable(
             route = Screen.ACTIVITY.route
         ) {
+            val viewModel: ActivityViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-        }
-        composable(
-            route = Screen.NUTRIENT_GOAL.route
-        ) {
-
+            ActivityScreen(
+                onNavigate = navHostController::navigate,
+                onUiAction = viewModel.uiAction,
+                uiState = uiState,
+                uiEvent = viewModel.uiEvent
+            )
         }
         composable(
             route = Screen.GOAL.route
+        ) {
+            val viewModel: GoalViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            GoalScreen(
+                onNavigate = navHostController::navigate,
+                onUiAction = viewModel.uiAction,
+                uiState = uiState,
+                uiEvent = viewModel.uiEvent
+            )
+        }
+        composable(
+            route = Screen.NUTRIENT_GOAL.route
         ) {
 
         }

@@ -35,12 +35,6 @@ class GenderViewModel @Inject constructor(
 
     init {
         uiAction = ::onUiAction
-        println("viewModel >> initialized")
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        println("viewModel >> cleared")
     }
 
     private fun onUiAction(uiAction: UiAction) {
@@ -64,7 +58,11 @@ class GenderViewModel @Inject constructor(
 
     private fun onNextClick() = viewModelScope.launch {
         preferences.saveGender(uiState.value.selectedGender)
-        _uiEvent.send(UiEvent.Navigate(Screen.AGE))
+        sendEvent(UiEvent.Navigate(Screen.AGE))
+    }
+
+    private fun sendEvent(uiEvent: UiEvent) = viewModelScope.launch {
+        _uiEvent.send(uiEvent)
     }
 
     sealed interface UiAction {
