@@ -43,24 +43,31 @@ class NutrientGoalViewModel @Inject constructor(
     private fun onUiAction(uiAction: NutrientGoalUiAction) {
         when(uiAction) {
             is NutrientGoalUiAction.OnCarbRatioEnter -> {
-                _uiState.update {
-                    it.copy(
-                        carbsRatio = filterOutDigits(uiAction.ratio)
-                    )
+                if(uiAction.ratio.length <= 3) {
+                    _uiState.update {
+                        it.copy(
+                            carbsRatio = filterOutDigits(uiAction.ratio)
+                        )
+                    }
                 }
+
             }
             is NutrientGoalUiAction.OnProteinRatioEnter -> {
-                _uiState.update {
-                    it.copy(
-                        proteinRatio = filterOutDigits(uiAction.ratio)
-                    )
+                if(uiAction.ratio.length <= 3) {
+                    _uiState.update {
+                        it.copy(
+                            proteinRatio = filterOutDigits(uiAction.ratio)
+                        )
+                    }
                 }
             }
             is NutrientGoalUiAction.OnFatRatioEnter -> {
-                _uiState.update {
-                    it.copy(
-                        fatRatio = filterOutDigits(uiAction.ratio)
-                    )
+                if(uiAction.ratio.length <= 3) {
+                    _uiState.update {
+                        it.copy(
+                            fatRatio = filterOutDigits(uiAction.ratio)
+                        )
+                    }
                 }
             }
             NutrientGoalUiAction.OnNextClick -> {
