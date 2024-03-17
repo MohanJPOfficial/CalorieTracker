@@ -24,6 +24,7 @@ import com.mohanjp.onboarding_presentation.nutrientgoal.NutrientGoalViewModel
 import com.mohanjp.onboarding_presentation.weight.WeightScreen
 import com.mohanjp.onboarding_presentation.weight.WeightViewModel
 import com.mohanjp.onboarding_presentation.welcome.WelcomeScreen
+import com.mohanjp.tracker_presentation.trackeroverview.TrackerOverviewScreen
 
 @Composable
 fun SetupNavGraph(
@@ -139,7 +140,7 @@ fun SetupNavGraph(
         composable(
             route = Screen.TRACKER_OVERVIEW.route
         ) {
-
+            TrackerOverviewScreen()
         }
         composable(
             route = Screen.SEARCH.route

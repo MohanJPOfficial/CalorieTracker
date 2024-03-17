@@ -52,4 +52,10 @@ object TrackerDataModule {
             name = TrackerDatabase.DB_NAME
         ).build()
     }
+
+    @Provides
+    @Singleton
+    fun provideTrackerDao(
+        db: TrackerDatabase
+    ) = db.dao
 }
