@@ -86,6 +86,18 @@ class DefaultPreferences @Inject constructor(
         }
     }
 
+    override fun saveShouldShowOnboarding(shouldShow: Boolean) {
+        editor.putBoolean(Preferences.Keys.SHOULD_SHOW_ONBOARDING.key, shouldShow)
+            .apply()
+    }
+
+    override fun loadShouldShowOnboarding(): Boolean {
+        return sharedPref.getBoolean(
+            Preferences.Keys.SHOULD_SHOW_ONBOARDING.key,
+            true
+        )
+    }
+
     companion object {
         const val SHARED_PREF_NAME = "shared_pref"
     }

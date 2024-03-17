@@ -17,6 +17,9 @@ interface Preferences {
     fun saveFatRatio(ratio: Float)
 
     fun loadUserInfo(): UserInfo
+    fun saveShouldShowOnboarding(shouldShow: Boolean)
+    fun loadShouldShowOnboarding(): Boolean
+
 
     enum class Keys(val key: String) {
         GENDER("gender"),
@@ -27,6 +30,7 @@ interface Preferences {
         GOAL_TYPE("goal_type"),
         CARB_RATIO("carb_ratio"),
         PROTEIN_RATIO("protein_ratio"),
-        FAT_RATIO("fat_ratio")
+        FAT_RATIO("fat_ratio"),
+        SHOULD_SHOW_ONBOARDING("should_show_onboarding")
     }
 }
