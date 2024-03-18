@@ -25,6 +25,7 @@ import com.mohanjp.onboarding_presentation.weight.WeightScreen
 import com.mohanjp.onboarding_presentation.weight.WeightViewModel
 import com.mohanjp.onboarding_presentation.welcome.WelcomeScreen
 import com.mohanjp.tracker_presentation.trackeroverview.TrackerOverviewScreen
+import com.mohanjp.tracker_presentation.trackeroverview.TrackerOverviewViewModel
 
 @Composable
 fun SetupNavGraph(
@@ -140,7 +141,15 @@ fun SetupNavGraph(
         composable(
             route = Screen.TRACKER_OVERVIEW.route
         ) {
-            TrackerOverviewScreen()
+            val viewModel: TrackerOverviewViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            TrackerOverviewScreen(
+                onNavigate = navHostController::navigate,
+                uiAction = viewModel.uiAction,
+                uiState = uiState,
+                uiEvent = viewModel.uiEvent
+            )
         }
         composable(
             route = Screen.SEARCH.route

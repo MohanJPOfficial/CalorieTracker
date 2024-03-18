@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.mohanjp.core.domain.preferences.Preferences
 import com.mohanjp.core.navigation.Screen
 import com.mohanjp.core.util.UiEvent
+import com.mohanjp.core.util.UiText
 import com.mohanjp.tracker_domain.model.TrackedFood
 import com.mohanjp.tracker_domain.usecase.TrackerUseCases
+import com.mohanjp.tracker_presentation.util.DateUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -70,7 +72,8 @@ class TrackerOverviewViewModel @Inject constructor(
     private fun updateToNextDay() {
         _uiState.update {
             it.copy(
-                date = it.date.plusDays(1)
+                date = it.date.plusDays(1),
+                readableDate = DateUtil.parseDateToReadable(it.date.plusDays(1))
             )
         }
 
@@ -80,7 +83,8 @@ class TrackerOverviewViewModel @Inject constructor(
     private fun updateToPreviousDay() {
         _uiState.update {
             it.copy(
-                date = it.date.minusDays(1)
+                date = it.date.minusDays(1),
+                readableDate = DateUtil.parseDateToReadable(it.date.minusDays(1))
             )
         }
 
@@ -180,6 +184,7 @@ class TrackerOverviewViewModel @Inject constructor(
         val caloriesGoal: Int = 0,
         val date: LocalDate = LocalDate.now(),
         val trackedFoods: List<TrackedFood> = emptyList(),
-        val meals: List<Meal> = defaultMeals
+        val meals: List<Meal> = defaultMeals,
+        val readableDate: UiText = DateUtil.parseDateToReadable(LocalDate.now())
     )
 }
