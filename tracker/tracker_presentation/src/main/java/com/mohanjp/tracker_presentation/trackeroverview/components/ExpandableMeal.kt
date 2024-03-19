@@ -26,13 +26,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.mohanjp.tracker_presentation.trackeroverview.Meal
 import com.mohanjp.core.R
 import com.mohanjp.core.util.UiText
 import com.mohanjp.core_ui.LocalSpacing
 import com.mohanjp.tracker_domain.model.MealType
 import com.mohanjp.tracker_presentation.components.NutrientInfo
 import com.mohanjp.tracker_presentation.components.UnitDisplay
+import com.mohanjp.tracker_presentation.trackeroverview.Meal
 
 @Composable
 fun ExpandableMeal(
@@ -149,9 +149,12 @@ private fun ExpandableMealPreview() {
         meal = Meal(
             name = UiText.StringResource(R.string.breakfast),
             drawableRes = R.drawable.ic_breakfast,
-            mealType = MealType.BREAKFAST
+            mealType = MealType.BREAKFAST,
+            isExpanded = true
         ),
         onToggleClick = {},
-        content = {}
+        content = {},
+        modifier = Modifier.fillMaxWidth()
+            //.background(color = MaterialTheme.colorScheme.primary)
     )
 }

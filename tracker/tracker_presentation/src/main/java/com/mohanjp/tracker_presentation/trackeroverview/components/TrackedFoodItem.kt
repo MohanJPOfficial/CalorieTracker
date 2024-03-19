@@ -26,14 +26,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.mohanjp.core.R
 import com.mohanjp.core_ui.LocalSpacing
+import com.mohanjp.tracker_domain.model.MealType
 import com.mohanjp.tracker_domain.model.TrackedFood
 import com.mohanjp.tracker_presentation.components.NutrientInfo
+import java.time.LocalDate
 
 @Composable
 fun TrackedFoodItem(
@@ -155,4 +158,23 @@ fun TrackedFoodItem(
             }
         }
     }
+}
+
+@Preview
+@Composable
+private fun TrackedFoodItemPreview() {
+    TrackedFoodItem(
+        trackedFood = TrackedFood(
+            name = "Burger",
+            carbs = 20,
+            protein = 50,
+            fat = 80,
+            imageUrl = null,
+            mealType = MealType.SNACK,
+            amount = 20,
+            date = LocalDate.now(),
+            calories = 60
+        ),
+        onDeleteClick = { /*TODO*/ }
+    )
 }

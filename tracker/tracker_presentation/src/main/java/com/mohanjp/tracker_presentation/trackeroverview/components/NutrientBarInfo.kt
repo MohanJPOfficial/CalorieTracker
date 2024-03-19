@@ -126,7 +126,7 @@ private fun NutrientBarInfoPreview() {
     NutrientBarInfo(
         value = 50,
         goal = 100,
-        name = "carbs",
+        name = stringResource(id = R.string.carbs),
         color = CarbColor,
         modifier = Modifier
             .padding(10.dp)

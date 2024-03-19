@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mohanjp.core.R
 import com.mohanjp.core_ui.LocalSpacing
@@ -57,4 +58,16 @@ fun AddButton(
             color = color
         )
     }
+}
+
+@Preview(
+    showBackground = true
+)
+@Composable
+private fun AddButtonPreview() {
+    AddButton(
+        text = stringResource(id = R.string.dinner),
+        onClick = { },
+        modifier = Modifier.padding(10.dp)
+    )
 }
