@@ -5,7 +5,7 @@ import com.mohanjp.core.util.UiText
 import com.mohanjp.tracker_domain.model.MealType
 import com.mohanjp.core.R
 
-data class Meal(
+data class MealUiState(
     val name: UiText,
     @DrawableRes val drawableRes: Int,
     val mealType: MealType,
@@ -16,23 +16,23 @@ data class Meal(
     val isExpanded: Boolean = false
 )
 
-val defaultMeals = listOf(
-    Meal(
+val defaultMealUiStates = listOf(
+    MealUiState(
         name = UiText.StringResource(R.string.breakfast),
         drawableRes = R.drawable.ic_breakfast,
         mealType = MealType.BREAKFAST
     ),
-    Meal(
+    MealUiState(
         name = UiText.StringResource(R.string.lunch),
         drawableRes = R.drawable.ic_lunch,
         mealType = MealType.LUNCH
     ),
-    Meal(
+    MealUiState(
         name = UiText.StringResource(R.string.dinner),
         drawableRes = R.drawable.ic_dinner,
         mealType = MealType.DINNER
     ),
-    Meal(
+    MealUiState(
         name = UiText.StringResource(R.string.snacks),
         drawableRes = R.drawable.ic_snack,
         mealType = MealType.SNACK

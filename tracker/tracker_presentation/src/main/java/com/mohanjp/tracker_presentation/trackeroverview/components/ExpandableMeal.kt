@@ -32,11 +32,11 @@ import com.mohanjp.core_ui.LocalSpacing
 import com.mohanjp.tracker_domain.model.MealType
 import com.mohanjp.tracker_presentation.components.NutrientInfo
 import com.mohanjp.tracker_presentation.components.UnitDisplay
-import com.mohanjp.tracker_presentation.trackeroverview.Meal
+import com.mohanjp.tracker_presentation.trackeroverview.MealUiState
 
 @Composable
 fun ExpandableMeal(
-    meal: Meal,
+    mealUiState: MealUiState,
     onToggleClick: () -> Unit,
     content: @Composable () -> Unit,
     modifier: Modifier = Modifier
@@ -55,8 +55,8 @@ fun ExpandableMeal(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = meal.drawableRes),
-                contentDescription = meal.name.asString(context)
+                painter = painterResource(id = mealUiState.drawableRes),
+                contentDescription = mealUiState.name.asString(context)
             )
 
             Spacer(modifier = Modifier.width(spacing.spaceMedium))
@@ -69,12 +69,12 @@ fun ExpandableMeal(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = meal.name.asString(context),
+                        text = mealUiState.name.asString(context),
                         style = MaterialTheme.typography.titleLarge
                     )
                     Icon(
-                        imageVector = getKeyboardArrowIcon(meal.isExpanded),
-                        contentDescription = getKeyboardArrowIconContentDescription(meal.isExpanded)
+                        imageVector = getKeyboardArrowIcon(mealUiState.isExpanded),
+                        contentDescription = getKeyboardArrowIconContentDescription(mealUiState.isExpanded)
                     )
                 }
 
@@ -85,7 +85,7 @@ fun ExpandableMeal(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     UnitDisplay(
-                        amount = meal.calories,
+                        amount = mealUiState.calories,
                         unit = stringResource(id = R.string.kcal),
                         amountTextSize = 30.sp
                     )
@@ -93,7 +93,7 @@ fun ExpandableMeal(
                     Row {
                         NutrientInfo(
                             name = stringResource(id = R.string.carbs),
-                            amount = meal.carbs,
+                            amount = mealUiState.carbs,
                             unit = stringResource(id = R.string.grams)
                         )
 
@@ -101,7 +101,7 @@ fun ExpandableMeal(
 
                         NutrientInfo(
                             name = stringResource(id = R.string.protein),
-                            amount = meal.protein,
+                            amount = mealUiState.protein,
                             unit = stringResource(id = R.string.grams)
                         )
 
@@ -109,7 +109,7 @@ fun ExpandableMeal(
 
                         NutrientInfo(
                             name = stringResource(id = R.string.fat),
-                            amount = meal.fat,
+                            amount = mealUiState.fat,
                             unit = stringResource(id = R.string.grams)
                         )
                     }
@@ -118,7 +118,7 @@ fun ExpandableMeal(
         }
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
-        AnimatedVisibility(visible = meal.isExpanded) {
+        AnimatedVisibility(visible = mealUiState.isExpanded) {
             content()
         }
     }
@@ -146,7 +146,7 @@ private fun getKeyboardArrowIconContentDescription(isExpanded: Boolean): String 
 @Composable
 private fun ExpandableMealPreview() {
     ExpandableMeal(
-        meal = Meal(
+        mealUiState = MealUiState(
             name = UiText.StringResource(R.string.breakfast),
             drawableRes = R.drawable.ic_breakfast,
             mealType = MealType.BREAKFAST,

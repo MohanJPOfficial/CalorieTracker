@@ -58,7 +58,7 @@ class TrackerOverviewViewModel @Inject constructor(
                 deleteTrackedFood(uiAction.trackedFood)
             }
             is UiAction.OnToggleMealClick -> {
-                toggleMealExpanded(uiAction.meal)
+                toggleMealExpanded(uiAction.mealUiState)
             }
             UiAction.OnNextDayClick -> {
                 updateToNextDay()
@@ -91,11 +91,11 @@ class TrackerOverviewViewModel @Inject constructor(
         refreshFoods()
     }
 
-    private fun toggleMealExpanded(clickedMeal: Meal) {
+    private fun toggleMealExpanded(clickedMealUiState: MealUiState) {
         _uiState.update { uiState ->
             uiState.copy(
-                meals = uiState.meals.map { meal ->
-                    if(meal.name == clickedMeal.name) {
+                mealUiStates = uiState.mealUiStates.map { meal ->
+                    if(meal.name == clickedMealUiState.name) {
                         meal.copy(
                             isExpanded = !meal.isExpanded
                         )
@@ -137,7 +137,7 @@ class TrackerOverviewViewModel @Inject constructor(
                             fatGoal = fatGoal,
                             caloriesGoal = caloriesGoal,
                             trackedFoods = foods,
-                            meals = uiState.meals.map { meal ->
+                            mealUiStates = uiState.mealUiStates.map { meal ->
                                 val nutrientsForMeal = nutrientResult.mealNutrients[meal.mealType]
                                     ?: return@map meal.copy(
                                     carbs = 0,
@@ -168,9 +168,9 @@ class TrackerOverviewViewModel @Inject constructor(
     sealed interface UiAction {
         data object OnNextDayClick: UiAction
         data object OnPreviousDayClick: UiAction
-        data class OnToggleMealClick(val meal: Meal): UiAction
+        data class OnToggleMealClick(val mealUiState: MealUiState): UiAction
         data class OnDeleteTrackedFoodClick(val trackedFood: TrackedFood): UiAction
-        data class OnAddFoodClick(val meal: Meal): UiAction
+        data class OnAddFoodClick(val mealUiState: MealUiState): UiAction
     }
 
     data class UiState(
@@ -184,7 +184,7 @@ class TrackerOverviewViewModel @Inject constructor(
         val caloriesGoal: Int = 0,
         val date: LocalDate = LocalDate.now(),
         val trackedFoods: List<TrackedFood> = emptyList(),
-        val meals: List<Meal> = defaultMeals,
+        val mealUiStates: List<MealUiState> = defaultMealUiStates,
         val readableDate: UiText = DateUtil.parseDateToReadable(LocalDate.now())
     )
 }

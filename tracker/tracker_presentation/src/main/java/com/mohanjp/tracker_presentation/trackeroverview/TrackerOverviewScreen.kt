@@ -67,10 +67,10 @@ fun TrackerOverviewScreen(
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
         }
 
-        items(uiState.meals) { meal ->
+        items(uiState.mealUiStates) { meal ->
             ExpandableMeal(
                 modifier = Modifier.fillMaxWidth(),
-                meal = meal,
+                mealUiState = meal,
                 onToggleClick = { uiAction(TrackerOverviewViewModel.UiAction.OnToggleMealClick(meal)) },
                 content = {
                       Column(
