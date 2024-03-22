@@ -6,8 +6,10 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.mohanjp.core.navigation.Screen
 import com.mohanjp.onboarding_presentation.activity.ActivityScreen
 import com.mohanjp.onboarding_presentation.activity.ActivityViewModel
@@ -24,6 +26,9 @@ import com.mohanjp.onboarding_presentation.nutrientgoal.NutrientGoalViewModel
 import com.mohanjp.onboarding_presentation.weight.WeightScreen
 import com.mohanjp.onboarding_presentation.weight.WeightViewModel
 import com.mohanjp.onboarding_presentation.welcome.WelcomeScreen
+import com.mohanjp.tracker_presentation.search.SearchScreen
+import com.mohanjp.core.navigation.SearchScreenArgs
+import com.mohanjp.tracker_presentation.search.SearchViewModel
 import com.mohanjp.tracker_presentation.trackeroverview.TrackerOverviewScreen
 import com.mohanjp.tracker_presentation.trackeroverview.TrackerOverviewViewModel
 
@@ -34,17 +39,17 @@ fun SetupNavGraph(
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.WELCOME.route
+        startDestination = Screen.TrackerOverview.route
     ) {
         composable(
-            route = Screen.WELCOME.route
+            route = Screen.Welcome.route
         ) {
             WelcomeScreen(
                 onNavigate = navHostController::navigate
             )
         }
         composable(
-            route = Screen.GENDER.route
+            route = Screen.Gender.route
         ) {
             val viewModel: GenderViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -57,7 +62,7 @@ fun SetupNavGraph(
             )
         }
         composable(
-            route = Screen.AGE.route
+            route = Screen.Age.route
         ) {
             val viewModel: AgeViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -71,7 +76,7 @@ fun SetupNavGraph(
             )
         }
         composable(
-            route = Screen.HEIGHT.route
+            route = Screen.Height.route
         ) {
             val viewModel: HeightViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -85,7 +90,7 @@ fun SetupNavGraph(
             )
         }
         composable(
-            route = Screen.WEIGHT.route
+            route = Screen.Weight.route
         ) {
             val viewModel: WeightViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -99,7 +104,7 @@ fun SetupNavGraph(
             )
         }
         composable(
-            route = Screen.ACTIVITY.route
+            route = Screen.Activity.route
         ) {
             val viewModel: ActivityViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -112,7 +117,7 @@ fun SetupNavGraph(
             )
         }
         composable(
-            route = Screen.GOAL.route
+            route = Screen.Goal.route
         ) {
             val viewModel: GoalViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -125,7 +130,7 @@ fun SetupNavGraph(
             )
         }
         composable(
-            route = Screen.NUTRIENT_GOAL.route
+            route = Screen.NutrientGoal.route
         ) {
             val viewModel: NutrientGoalViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -139,7 +144,7 @@ fun SetupNavGraph(
             )
         }
         composable(
-            route = Screen.TRACKER_OVERVIEW.route
+            route = Screen.TrackerOverview.route
         ) {
             val viewModel: TrackerOverviewViewModel = hiltViewModel()
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -152,9 +157,36 @@ fun SetupNavGraph(
             )
         }
         composable(
-            route = Screen.SEARCH.route
+            route = Screen.Search.route,
+            arguments = listOf(
+                navArgument(SearchScreenArgs.MEAL_NAME.name) {
+                    type = NavType.StringType
+                },
+                navArgument(SearchScreenArgs.DAY_OF_MONTH.name) {
+                    type = NavType.IntType
+                },
+                navArgument(SearchScreenArgs.MONTH.name) {
+                    type = NavType.IntType
+                },
+                navArgument(SearchScreenArgs.YEAR.name) {
+                    type = NavType.IntType
+                }
+            )
         ) {
 
+            val viewModel: SearchViewModel = hiltViewModel()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+            SearchScreen(
+                onNavigate = navHostController::navigate,
+                onNavigateUp = {
+                    navHostController.navigateUp()
+                },
+                uiAction = viewModel.uiAction,
+                uiState = uiState,
+                uiEvent = viewModel.uiEvent,
+                showSnackBar = snackBarHostState::showSnackbar
+            )
         }
     }
 }

@@ -71,7 +71,7 @@ class HeightViewModel @Inject constructor(
             return@launch
         }
         preferences.saveHeight(heightNumber)
-        sendEvent(UiEvent.Navigate(Screen.WEIGHT))
+        sendEvent(UiEvent.Navigate(Screen.Weight))
     }
 
     private fun sendEvent(uiEvent: UiEvent) = viewModelScope.launch {

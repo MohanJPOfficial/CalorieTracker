@@ -91,7 +91,7 @@ class NutrientGoalViewModel @Inject constructor(
                     saveFatRatio(result.fatRatio)
                 }
 
-                sendEvent(UiEvent.Navigate(Screen.TRACKER_OVERVIEW))
+                sendEvent(UiEvent.Navigate(Screen.TrackerOverview))
             }
             is ValidateNutrients.Result.Error -> {
                 sendEvent(UiEvent.ShowSnackBar(result.message))

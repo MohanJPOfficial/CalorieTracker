@@ -58,7 +58,7 @@ class ActivityViewModel @Inject constructor(
 
     private fun onNextClick() = viewModelScope.launch {
         preferences.saveActivityLevel(uiState.value.selectedActivityLevel)
-        sendEvent(UiEvent.Navigate(Screen.GOAL))
+        sendEvent(UiEvent.Navigate(Screen.Goal))
     }
 
     private fun sendEvent(uiEvent: UiEvent) = viewModelScope.launch {

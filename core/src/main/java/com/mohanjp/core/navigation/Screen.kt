@@ -1,22 +1,39 @@
 package com.mohanjp.core.navigation
 
-enum class Screen(val route: String) {
+sealed class Screen(open val route: String) {
 
     /**
      * onboard
      */
-    WELCOME("welcome"),
-    AGE("age"),
-    GENDER("gender"),
-    HEIGHT("height"),
-    WEIGHT("weight"),
-    NUTRIENT_GOAL("nutrient_goal"),
-    ACTIVITY("activity"),
-    GOAL("goal"),
+    data object Welcome: Screen("welcome")
+    data object Age: Screen("age")
+    data object Gender: Screen("gender")
+    data object Height: Screen("height")
+    data object Weight: Screen("weight")
+    data object NutrientGoal: Screen("nutrient_goal")
+    data object Activity: Screen("activity")
+    data object Goal: Screen("goal")
 
     /**
      * tracker
      */
-    TRACKER_OVERVIEW("tracker_overview"),
-    SEARCH("search")
+    data object TrackerOverview: Screen("tracker_overview")
+    data class Search(override val route: String): Screen(route) {
+        companion object {
+
+            val route = "search/{${SearchScreenArgs.MEAL_NAME}}/{${SearchScreenArgs.DAY_OF_MONTH}}/" +
+                    "{${SearchScreenArgs.MONTH}}/{${SearchScreenArgs.YEAR}}"
+
+            fun passSearchScreenArgs(
+                mealName: String,
+                dayOfMonth: Int,
+                month: Int,
+                year: Int
+            ): Screen {
+                return Search(
+                    "search/$mealName/$dayOfMonth/$month/$year"
+                )
+            }
+        }
+    }
 }

@@ -1,9 +1,11 @@
 package com.mohanjp.tracker_presentation.search
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohanjp.core.R
 import com.mohanjp.core.domain.usecase.FilterOutDigits
+import com.mohanjp.core.navigation.SearchScreenArgs
 import com.mohanjp.core.util.UiEvent
 import com.mohanjp.core.util.UiText
 import com.mohanjp.tracker_domain.model.MealType
@@ -23,7 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val trackerUseCases: TrackerUseCases,
-    private val filterOutDigits: FilterOutDigits
+    private val filterOutDigits: FilterOutDigits,
+    private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
     private val _uiState = MutableStateFlow(UiState())
@@ -40,6 +43,24 @@ class SearchViewModel @Inject constructor(
 
     init {
         uiAction = ::onUiAction
+
+        extractValuesFromSavedStateHandle()
+    }
+
+    private fun extractValuesFromSavedStateHandle() {
+        val mealName = savedStateHandle.get<String>(SearchScreenArgs.MEAL_NAME.name)
+        val dayOfMonth = savedStateHandle.get<Int>(SearchScreenArgs.DAY_OF_MONTH.name)
+        val month = savedStateHandle.get<Int>(SearchScreenArgs.MONTH.name)
+        val year = savedStateHandle.get<Int>(SearchScreenArgs.YEAR.name)
+
+        if(mealName == null || dayOfMonth == null || month == null || year == null)
+            return
+
+        _uiState.update {
+            it.copy(
+                mealName = mealName
+            )
+        }
     }
 
     private fun onUiAction(uiAction: UiAction) {
@@ -169,6 +190,7 @@ class SearchViewModel @Inject constructor(
         val query: String = "",
         val isHintVisible: Boolean = false,
         val isSearching: Boolean = false,
-        val trackableFoodUiStates: List<TrackableFoodUiState> = emptyList()
+        val trackableFoodUiStates: List<TrackableFoodUiState> = emptyList(),
+        val mealName: String = ""
     )
 }

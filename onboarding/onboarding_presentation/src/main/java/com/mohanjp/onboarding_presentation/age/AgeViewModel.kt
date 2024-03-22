@@ -71,7 +71,7 @@ class AgeViewModel @Inject constructor(
             return@launch
         }
         preferences.saveAge(ageNumber)
-        sendEvent(UiEvent.Navigate(Screen.HEIGHT))
+        sendEvent(UiEvent.Navigate(Screen.Height))
     }
 
     private fun sendEvent(uiEvent: UiEvent) = viewModelScope.launch {

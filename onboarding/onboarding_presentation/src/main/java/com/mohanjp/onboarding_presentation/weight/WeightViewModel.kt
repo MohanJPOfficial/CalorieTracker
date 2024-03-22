@@ -69,7 +69,7 @@ class WeightViewModel @Inject constructor(
             return@launch
         }
         preferences.saveWeight(weightNumber)
-        sendEvent(UiEvent.Navigate(Screen.ACTIVITY))
+        sendEvent(UiEvent.Navigate(Screen.Activity))
     }
 
     private fun sendEvent(uiEvent: UiEvent) = viewModelScope.launch {

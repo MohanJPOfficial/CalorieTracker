@@ -6,6 +6,7 @@ import com.mohanjp.core.domain.preferences.Preferences
 import com.mohanjp.core.navigation.Screen
 import com.mohanjp.core.util.UiEvent
 import com.mohanjp.core.util.UiText
+import com.mohanjp.tracker_domain.model.MealType
 import com.mohanjp.tracker_domain.model.TrackedFood
 import com.mohanjp.tracker_domain.usecase.TrackerUseCases
 import com.mohanjp.tracker_presentation.util.DateUtil
@@ -52,7 +53,7 @@ class TrackerOverviewViewModel @Inject constructor(
     private fun onUiAction(uiAction: UiAction) {
         when(uiAction) {
             is UiAction.OnAddFoodClick -> {
-                navigateToSearchScreen()
+                navigateToSearchScreen(uiAction.mealUiState.mealType)
             }
             is UiAction.OnDeleteTrackedFoodClick -> {
                 deleteTrackedFood(uiAction.trackedFood)
@@ -110,9 +111,14 @@ class TrackerOverviewViewModel @Inject constructor(
         refreshFoods()
     }
 
-    private fun navigateToSearchScreen() {
+    private fun navigateToSearchScreen(mealType: MealType) {
         sendEvent(
-            UiEvent.Navigate(Screen.SEARCH)
+            UiEvent.Navigate(Screen.Search.passSearchScreenArgs(
+                mealName = mealType.type,
+                dayOfMonth = uiState.value.date.dayOfMonth,
+                month = uiState.value.date.monthValue,
+                year = uiState.value.date.year,
+            ))
         )
     }
 
