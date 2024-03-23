@@ -56,9 +56,12 @@ class SearchViewModel @Inject constructor(
         if(mealName == null || dayOfMonth == null || month == null || year == null)
             return
 
+        val date = LocalDate.of(year, month, dayOfMonth)
+
         _uiState.update {
             it.copy(
-                mealName = mealName
+                mealName = mealName,
+                date = date
             )
         }
     }
@@ -133,6 +136,7 @@ class SearchViewModel @Inject constructor(
                 _uiState.update { uiState ->
                     uiState.copy(
                         trackableFoodUiStates = foods.map {
+                            println("trackable food >> $it")
                             TrackableFoodUiState(it)
                         },
                         isSearching = false,
@@ -191,6 +195,7 @@ class SearchViewModel @Inject constructor(
         val isHintVisible: Boolean = false,
         val isSearching: Boolean = false,
         val trackableFoodUiStates: List<TrackableFoodUiState> = emptyList(),
-        val mealName: String = ""
+        val mealName: String = "",
+        val date: LocalDate = LocalDate.now()
     )
 }
