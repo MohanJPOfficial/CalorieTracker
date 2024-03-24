@@ -14,10 +14,10 @@ class CalculateMealNutrients(
 ) {
 
     operator fun invoke(trackedFoods: List<TrackedFood>): Result {
-        val allNutrients = trackedFoods
+        val allNutrientsByMealType = trackedFoods
             .groupBy { it.mealType }
             .mapValues { entry ->
-                val type = entry.key
+                val mealType = entry.key
                 val foods = entry.value
 
                 MealNutrients(
@@ -25,14 +25,14 @@ class CalculateMealNutrients(
                     protein = foods.sumOf { it.protein },
                     fat = foods.sumOf { it.fat },
                     calories = foods.sumOf { it.calories },
-                    mealType = type
+                    mealType = mealType
                 )
             }
 
-        val totalCarbs = allNutrients.values.sumOf { it.carbs }
-        val totalProtein = allNutrients.values.sumOf { it.protein }
-        val totalFat = allNutrients.values.sumOf { it.fat }
-        val totalCalories = allNutrients.values.sumOf { it.calories }
+        val totalCarbs = allNutrientsByMealType.values.sumOf { it.carbs }
+        val totalProtein = allNutrientsByMealType.values.sumOf { it.protein }
+        val totalFat = allNutrientsByMealType.values.sumOf { it.fat }
+        val totalCalories = allNutrientsByMealType.values.sumOf { it.calories }
 
         val userInfo = preferences.loadUserInfo()
         val calorieGoal = dailyCalorieRequirement(userInfo)
@@ -49,16 +49,8 @@ class CalculateMealNutrients(
             totalProtein = totalProtein,
             totalFat = totalFat,
             totalCalories = totalCalories,
-            mealNutrients = allNutrients
+            mealNutrients = allNutrientsByMealType
         )
-    }
-
-    private fun bmr(userInfo: UserInfo): Int {
-
-        return when(userInfo.gender) {
-            Gender.MALE -> (66.47f + 13.75f * userInfo.weight + 5f * userInfo.height - userInfo.age).roundToInt()
-            Gender.FEMALE -> (665.09f + 9.56f * userInfo.weight + 1.84f * userInfo.height - 4.67 * userInfo.age).roundToInt()
-        }
     }
 
     private fun dailyCalorieRequirement(userInfo: UserInfo): Int {
@@ -75,6 +67,14 @@ class CalculateMealNutrients(
         }
 
         return (bmr(userInfo) * activityFactor + calorieExtra).roundToInt()
+    }
+
+    private fun bmr(userInfo: UserInfo): Int {
+
+        return when(userInfo.gender) {
+            Gender.MALE -> (66.47f + 13.75f * userInfo.weight + 5f * userInfo.height - userInfo.age).roundToInt()
+            Gender.FEMALE -> (665.09f + 9.56f * userInfo.weight + 1.84f * userInfo.height - 4.67 * userInfo.age).roundToInt()
+        }
     }
 
     data class MealNutrients(

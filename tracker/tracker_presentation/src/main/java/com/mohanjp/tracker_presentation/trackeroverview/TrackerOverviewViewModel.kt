@@ -45,6 +45,7 @@ class TrackerOverviewViewModel @Inject constructor(
     private var getFoodsForDateJob: Job? = null
 
     init {
+        refreshFoods()
         preferences.saveShouldShowOnboarding(false)
 
         uiAction = ::onUiAction
@@ -127,9 +128,9 @@ class TrackerOverviewViewModel @Inject constructor(
 
         getFoodsForDateJob = trackerUseCases
             .getFoodsForDate(uiState.value.date)
-            .onEach { foods ->
+            .onEach { trackedFoods ->
 
-                val nutrientResult = trackerUseCases.calculateMealNutrients(foods)
+                val nutrientResult = trackerUseCases.calculateMealNutrients(trackedFoods)
 
                 with(nutrientResult) {
                     _uiState.update { uiState ->
@@ -142,7 +143,7 @@ class TrackerOverviewViewModel @Inject constructor(
                             proteinGoal = proteinGoal,
                             fatGoal = fatGoal,
                             caloriesGoal = caloriesGoal,
-                            trackedFoods = foods,
+                            trackedFoods = trackedFoods,
                             mealUiStates = uiState.mealUiStates.map { meal ->
                                 val nutrientsForMeal = nutrientResult.mealNutrients[meal.mealType]
                                     ?: return@map meal.copy(

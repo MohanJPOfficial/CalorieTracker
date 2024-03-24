@@ -17,6 +17,10 @@ class TrackFood(
         mealType: MealType,
         date: LocalDate
     ) {
+        /**
+         * it gives nutrient for 100g that's why we convert it into 1g by divide by 100 and
+         * multiply by entered gram amount by user.
+         */
         val trackedFood = TrackedFood(
             name = food.name,
             carbs = ((food.carbsPer100g / 100f) * amount).roundToInt(),

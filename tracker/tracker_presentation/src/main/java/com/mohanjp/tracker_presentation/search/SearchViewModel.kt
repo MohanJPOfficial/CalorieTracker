@@ -136,7 +136,6 @@ class SearchViewModel @Inject constructor(
                 _uiState.update { uiState ->
                     uiState.copy(
                         trackableFoodUiStates = foods.map {
-                            println("trackable food >> $it")
                             TrackableFoodUiState(it)
                         },
                         isSearching = false,
@@ -151,7 +150,7 @@ class SearchViewModel @Inject constructor(
                     )
                 }
 
-                _uiEvent.send(
+                sendEvent(
                     UiEvent.ShowSnackBar(UiText.StringResource(R.string.error_something_went_wrong))
                 )
             }
@@ -167,7 +166,7 @@ class SearchViewModel @Inject constructor(
             date = uiAction.date
         )
 
-        _uiEvent.send(UiEvent.NavigateUp)
+        sendEvent(UiEvent.NavigateUp)
     }
 
     private fun sendEvent(uiEvent: UiEvent) = viewModelScope.launch {

@@ -34,12 +34,13 @@ import com.mohanjp.tracker_presentation.trackeroverview.TrackerOverviewViewModel
 
 @Composable
 fun SetupNavGraph(
+    shouldShowOnboarding: Boolean,
     navHostController: NavHostController,
     snackBarHostState: SnackbarHostState
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.TrackerOverview.route
+        startDestination = if(shouldShowOnboarding) Screen.Welcome.route else Screen.TrackerOverview.route
     ) {
         composable(
             route = Screen.Welcome.route

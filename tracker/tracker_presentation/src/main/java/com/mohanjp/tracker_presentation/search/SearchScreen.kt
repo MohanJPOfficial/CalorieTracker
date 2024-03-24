@@ -87,8 +87,6 @@ fun SearchScreen(
         ) {
             items(uiState.trackableFoodUiStates) { trackableFoodUiState ->
 
-                println("${trackableFoodUiState.trackableFood}")
-
                 TrackableFoodItem(
                     trackableFoodUiState = trackableFoodUiState,
                     onClick = {
