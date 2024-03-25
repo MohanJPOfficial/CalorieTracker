@@ -3,8 +3,6 @@ package com.mohanjp.tracker_presentation.trackeroverview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohanjp.core.domain.preferences.Preferences
-import com.mohanjp.core.navigation.Screen
-import com.mohanjp.core.util.UiEvent
 import com.mohanjp.core.util.UiText
 import com.mohanjp.tracker_domain.model.MealType
 import com.mohanjp.tracker_domain.model.TrackedFood
@@ -114,12 +112,12 @@ class TrackerOverviewViewModel @Inject constructor(
 
     private fun navigateToSearchScreen(mealType: MealType) {
         sendEvent(
-            UiEvent.Navigate(Screen.Search.passSearchScreenArgs(
+            UiEvent.Navigate(
                 mealName = mealType.type,
                 dayOfMonth = uiState.value.date.dayOfMonth,
                 month = uiState.value.date.monthValue,
                 year = uiState.value.date.year,
-            ))
+            )
         )
     }
 
@@ -178,6 +176,15 @@ class TrackerOverviewViewModel @Inject constructor(
         data class OnToggleMealClick(val mealUiState: MealUiState): UiAction
         data class OnDeleteTrackedFoodClick(val trackedFood: TrackedFood): UiAction
         data class OnAddFoodClick(val mealUiState: MealUiState): UiAction
+    }
+
+    sealed interface UiEvent {
+        data class Navigate(
+            val mealName: String,
+            val dayOfMonth: Int,
+            val month: Int,
+            val year: Int
+        ): UiEvent
     }
 
     data class UiState(

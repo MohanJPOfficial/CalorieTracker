@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohanjp.core.R
 import com.mohanjp.core.domain.usecase.FilterOutDigits
-import com.mohanjp.core.navigation.SearchScreenArgs
 import com.mohanjp.core.util.UiEvent
 import com.mohanjp.core.util.UiText
 import com.mohanjp.tracker_domain.model.MealType

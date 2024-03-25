@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohanjp.core.R
 import com.mohanjp.core.domain.preferences.Preferences
-import com.mohanjp.core.navigation.Screen
 import com.mohanjp.core.util.UiEvent
 import com.mohanjp.core.util.UiText
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -69,7 +68,7 @@ class WeightViewModel @Inject constructor(
             return@launch
         }
         preferences.saveWeight(weightNumber)
-        sendEvent(UiEvent.Navigate(Screen.Activity))
+        sendEvent(UiEvent.Navigate)
     }
 
     private fun sendEvent(uiEvent: UiEvent) = viewModelScope.launch {

@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.flow
 
 @Composable
 fun AgeScreen(
-    onNavigate: (UiEvent.Navigate) -> Unit,
+    onNavigate: () -> Unit,
     onUiAction: (AgeViewModel.UiAction) -> Unit,
     uiState: AgeViewModel.UiState,
     uiEvent: Flow<UiEvent>,
@@ -40,7 +40,7 @@ fun AgeScreen(
     LaunchedEffect(key1 = true) {
         uiEvent.collectLatest { event ->
             when(event) {
-                is UiEvent.Navigate -> onNavigate(event)
+                is UiEvent.Navigate -> onNavigate()
                 is UiEvent.ShowSnackBar -> {
                     showSnackBar(event.message.asString(context))
                 }

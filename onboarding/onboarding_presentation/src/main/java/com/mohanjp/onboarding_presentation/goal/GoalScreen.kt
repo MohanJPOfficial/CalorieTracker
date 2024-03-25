@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.flow
 
 @Composable
 fun GoalScreen(
-    onNavigate: (UiEvent.Navigate) -> Unit,
+    onNavigate: () -> Unit,
     onUiAction: (GoalViewModel.UiAction) -> Unit,
     uiState: GoalViewModel.UiState,
     uiEvent: Flow<UiEvent>
@@ -40,7 +40,7 @@ fun GoalScreen(
     LaunchedEffect(key1 = true) {
         uiEvent.collectLatest { event ->
             when(event) {
-                is UiEvent.Navigate -> onNavigate(event)
+                is UiEvent.Navigate -> onNavigate()
                 else -> Unit
             }
         }

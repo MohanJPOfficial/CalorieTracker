@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohanjp.core.domain.model.ActivityLevel
 import com.mohanjp.core.domain.preferences.Preferences
-import com.mohanjp.core.navigation.Screen
 import com.mohanjp.core.util.UiEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -58,7 +57,7 @@ class ActivityViewModel @Inject constructor(
 
     private fun onNextClick() = viewModelScope.launch {
         preferences.saveActivityLevel(uiState.value.selectedActivityLevel)
-        sendEvent(UiEvent.Navigate(Screen.Goal))
+        sendEvent(UiEvent.Navigate)
     }
 
     private fun sendEvent(uiEvent: UiEvent) = viewModelScope.launch {

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mohanjp.core.domain.preferences.Preferences
 import com.mohanjp.core.domain.usecase.FilterOutDigits
-import com.mohanjp.core.navigation.Screen
 import com.mohanjp.core.util.UiEvent
 import com.mohanjp.onboarding_domain.usecase.ValidateNutrients
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -91,7 +90,7 @@ class NutrientGoalViewModel @Inject constructor(
                     saveFatRatio(result.fatRatio)
                 }
 
-                sendEvent(UiEvent.Navigate(Screen.TrackerOverview))
+                sendEvent(UiEvent.Navigate)
             }
             is ValidateNutrients.Result.Error -> {
                 sendEvent(UiEvent.ShowSnackBar(result.message))

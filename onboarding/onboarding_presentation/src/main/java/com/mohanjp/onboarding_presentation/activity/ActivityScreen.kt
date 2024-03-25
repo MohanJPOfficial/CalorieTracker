@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.flow
 
 @Composable
 fun ActivityScreen(
-    onNavigate: (UiEvent.Navigate) -> Unit,
+    onNavigate: () -> Unit,
     onUiAction: (ActivityViewModel.UiAction) -> Unit,
     uiState: ActivityViewModel.UiState,
     uiEvent: Flow<UiEvent>
@@ -40,7 +40,7 @@ fun ActivityScreen(
     LaunchedEffect(key1 = true) {
         uiEvent.collectLatest { event ->
             when(event) {
-                is UiEvent.Navigate -> onNavigate(event)
+                is UiEvent.Navigate -> onNavigate()
                 else -> Unit
             }
         }

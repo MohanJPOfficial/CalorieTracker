@@ -28,10 +28,15 @@ import kotlinx.coroutines.flow.flow
 
 @Composable
 fun TrackerOverviewScreen(
-    onNavigate: (UiEvent.Navigate) -> Unit,
+    onNavigate: (
+        mealName: String,
+        dayOfYear: Int,
+        month: Int,
+        year: Int
+    ) -> Unit,
     uiAction: (TrackerOverviewViewModel.UiAction) -> Unit,
     uiState: TrackerOverviewViewModel.UiState,
-    uiEvent: Flow<UiEvent>
+    uiEvent: Flow<TrackerOverviewViewModel.UiEvent>
 ) {
     val spacing = LocalSpacing.current
     val context = LocalContext.current
@@ -39,8 +44,14 @@ fun TrackerOverviewScreen(
     LaunchedEffect(key1 = true) {
         uiEvent.collectLatest { event ->
             when(event) {
-                is UiEvent.Navigate -> onNavigate(event)
-                else -> Unit
+                is TrackerOverviewViewModel.UiEvent.Navigate -> {
+                    onNavigate(
+                        event.mealName,
+                        event.dayOfMonth,
+                        event.month,
+                        event.year
+                    )
+                }
             }
         }
     }
@@ -111,7 +122,7 @@ fun TrackerOverviewScreen(
 @Composable
 private fun TrackerOverScreenPreview() {
     TrackerOverviewScreen(
-        onNavigate = {},
+        onNavigate = {_,_,_,_ ->},
         uiAction = {},
         uiState = TrackerOverviewViewModel.UiState(),
         uiEvent = flow { }

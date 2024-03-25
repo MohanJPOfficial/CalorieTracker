@@ -33,7 +33,6 @@ import kotlinx.coroutines.flow.flow
 
 @Composable
 fun SearchScreen(
-    onNavigate: (UiEvent.Navigate) -> Unit,
     onNavigateUp: () -> Unit,
     uiAction: (SearchViewModel.UiAction) -> Unit,
     uiState: SearchViewModel.UiState,
@@ -51,8 +50,8 @@ fun SearchScreen(
                     showSnackBar(event.message.asString(context))
                     keyboardController?.hide()
                 }
-                is UiEvent.Navigate -> onNavigate(event)
                 UiEvent.NavigateUp -> onNavigateUp()
+                else -> Unit
             }
         }
     }
@@ -132,7 +131,6 @@ fun SearchScreen(
 @Composable
 private fun SearchScreenPreview() {
     SearchScreen(
-        onNavigate = { },
         onNavigateUp = { },
         uiAction = { },
         uiState = SearchViewModel.UiState(),
