@@ -29,7 +29,7 @@ class ValidateNutrients {
                 Result.Success(
                     carbsRatio = carbsRatio / 100f,
                     proteinRatio = proteinRatio / 100f,
-                    fatRatio = carbsRatio / 100f,
+                    fatRatio = fatRatio / 100f,
                 )
             }
         }
