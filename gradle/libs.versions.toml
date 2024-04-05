@@ -1,4 +1,5 @@
 [versions]
+jdk = "20"
 compose-compiler = "1.5.10"
 activity-compose = "1.8.2"
 androidx-junit = "1.1.5"
@@ -13,10 +14,12 @@ hilt-navigation = "1.2.0"
 retrofit = "2.9.0"
 okhttp = "4.12.0"
 room = "2.6.1"
+google-truth = "1.1.5"
+mockk = "1.13.10"
 
 #plugin versions
 ksp = "1.9.22-1.0.17"
-android-gradle = "8.3.0"
+android-gradle = "8.3.1"
 kotlin = "1.9.22"
 
 
@@ -64,6 +67,8 @@ junit = { module = "junit:junit", version.ref = "junit" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling"}
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest"}
+google-truth = { module = "com.google.truth:truth", version.ref = "google-truth"}
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [bundles]
 androidx-compose-bundle = [

@@ -31,13 +31,16 @@ android {
             )
         }
     }
-    compileOptions {
+    /*compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }*/
+    kotlin {
+        jvmToolchain(libs.versions.jdk.get().toInt())
     }
-    kotlinOptions {
+    /*kotlinOptions {
         jvmTarget = "17"
-    }
+    }*/
     buildFeatures {
         compose = true
     }
