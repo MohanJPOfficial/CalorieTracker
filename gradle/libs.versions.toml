@@ -16,6 +16,7 @@ okhttp = "4.12.0"
 room = "2.6.1"
 google-truth = "1.1.5"
 mockk = "1.13.10"
+mockWebServerVersion = "4.9.3"
 
 #plugin versions
 ksp = "1.9.22-1.0.17"
@@ -69,6 +70,7 @@ androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling"}
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest"}
 google-truth = { module = "com.google.truth:truth", version.ref = "google-truth"}
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockWebServer = { module = "com.squareup.okhttp3:mockwebserver", version.ref = "mockWebServerVersion"}
 
 [bundles]
 androidx-compose-bundle = [
