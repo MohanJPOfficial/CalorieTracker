@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -16,7 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.mohanjp.calorietracker.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -44,12 +45,24 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
+    /*composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
+    }*/
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE-notice.md"
+        }
+    }
+
+    testOptions {
+        packaging {
+            resources {
+                jniLibs {
+                    useLegacyPackaging = true
+                }
+            }
         }
     }
 }
@@ -69,6 +82,9 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+    androidTestImplementation(libs.google.truth)
+    androidTestImplementation(libs.mockk.android)
+
     /**
      * lifecycle compose
      */
@@ -79,6 +95,11 @@ dependencies {
      */
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.android.compiler)
+
+    /**
+     * hilt testing
+     */
+    androidTestImplementation(libs.hilt.testing)
 
     /**
      * hilt navigation

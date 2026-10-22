@@ -22,6 +22,7 @@ import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -70,6 +71,7 @@ fun SearchTextField(
                 .padding(spacing.spaceMedium)
                 .padding(end = spacing.spaceLarge)
                 .onFocusChanged { onFocusChanged(it) }
+                .testTag("search_textfield")
         )
 
         if(shouldShowHint) {

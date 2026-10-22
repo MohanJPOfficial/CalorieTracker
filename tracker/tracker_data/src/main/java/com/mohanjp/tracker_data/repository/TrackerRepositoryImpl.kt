@@ -11,6 +11,7 @@ import com.mohanjp.tracker_domain.model.TrackableFood
 import com.mohanjp.tracker_domain.model.TrackedFood
 import com.mohanjp.tracker_domain.repository.TrackerRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import javax.inject.Inject
@@ -64,6 +65,7 @@ class TrackerRepositoryImpl @Inject constructor(
     }
 
     override fun getFoodsForDate(localDate: LocalDate): Flow<List<TrackedFood>> {
+
         return dao.getFoodsForDate(
             day = localDate.dayOfMonth,
             month = localDate.monthValue,
